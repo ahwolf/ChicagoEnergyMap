@@ -19,5 +19,14 @@ Getting started
 
 * ```fab dev provision.setup_django``` _This will setup mysql and database for django_
 
+* Grab the database file from dropbox! https://www.dropbox.com/s/em7m1pje6vne1ut/chicagoEnergy.sql
+
 * SSH to the virtual machine with `vagrant ssh $(Your Project Name)`
 
+* ```cd /vagrant/PROJECT_NAME``` Change directory to manage.py location
+
+* ```python manage.py dbshell < /location/of/chicagoEnergy.sql``` update your database with census block shape files and energy information
+
+* ```python manage.py runserver 0.0.0.0:8000``` Create a webserver, then redirect your browser to 0.0.0.0:8000 and enjoy!
+
+** Questions? drop me a line at aaron.wolf@datascopeanlaytics or leave an issue.
