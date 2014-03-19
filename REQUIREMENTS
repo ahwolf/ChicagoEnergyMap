@@ -2,5 +2,13 @@ google-api-python-client
 PyGithub
 Fabric
 django
-shapely
+Shapely
 rtree
+django-debug-toolbar
+nose
+django-nose
+south
+django_compressor
+celery
+django-celery
+django-social-auth

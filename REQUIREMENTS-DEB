@@ -3,5 +3,6 @@ git
 mercurial
 python-scipy
 python-sklearn
-mysql-server
 libspatialindex-dev
+python-mysqldb
+libgeos-dev

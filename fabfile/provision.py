@@ -89,6 +89,65 @@ def setup_analysis():
         data_dir = "/vagrant/data"
         fabtools.require.files.directory(data_dir)
 
+@task
+@decorators.needs_environment
+def setup_django():
+    """setup django"""
+        
+    with vagrant_settings(env.host_string):
+
+        # extract necessary configuration variables from INI file
+        parser = utils.get_config_parser()
+        mysql_root_password = parser.get('mysql', 'root_password')
+        django_username = parser.get('mysql', 'django_root_username')
+        django_password = parser.get('mysql', 'django_root_password')
+        django_db = parser.get('mysql', 'django_database')
+        facebook_id = parser.get('social', 'FACEBOOK_APP_ID')
+
+        # setup mysql
+        fabtools.require.mysql.server(password=mysql_root_password)
+        with settings(mysql_user='root', mysql_password=mysql_root_password):
+            fabtools.require.mysql.user(django_username, django_password)
+            fabtools.require.mysql.database(django_db,owner=django_username)
+
+
+        # # collect the static files
+        # with cd("/vagrant/Map"):
+        #     run("./manage.py collectstatic --noinput")
+
+        # write the local django settings. since local.py is listed in
+        # the .hgignore, the -C option to rsync must ignore it. this
+        # needs to go AFTER rsyncing
+
+        # make sure the dir exists (for the site_root one)
+        target_dir = "/vagrant/Map/Map/settings/"
+        fabtools.require.directory(target_dir, owner="www-data", use_sudo=True)
+        # use_sudo is necessary (for the site_root one)
+
+        fabtools.require.files.template_file(
+            path=target_dir + "local.py",
+            template_source=os.path.join(
+                utils.fabfile_templates_root(), "django_settings.py"
+            ),
+            context={
+                "django_db": django_db,
+                "django_username": django_username,
+                "django_password": django_password,
+                "FACEBOOK_APP_ID": facebook_id,
+            },
+            use_sudo=True,
+        )
+
+        # # make sure permissions are set up properly
+        # #sudo("chmod -R a+w %s" % site_root)
+        # sudo("chmod -R g+w %s" % site_root)
+        # sudo("chgrp -R www-data %s" % site_root)
+            
+        # make sure database is up and running
+        with cd("/vagrant/Map"):
+            run("./manage.py syncdb --noinput")
+            run("./manage.py migrate")
+
 
 @task(default=True)
 @decorators.needs_environment

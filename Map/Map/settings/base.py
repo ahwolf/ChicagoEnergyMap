@@ -206,10 +206,10 @@ WSGI_APPLICATION = 'Map.wsgi.application'
 # Define your database connections
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ChicagoEnergy',
+        'USER': 'USERNAME',
+        'PASSWORD': 'PASSWORD',
         'HOST': '',
         'PORT': '',
         #'OPTIONS': {
