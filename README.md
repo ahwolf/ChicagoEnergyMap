@@ -29,4 +29,4 @@ Getting started
 
 * ```python manage.py runserver 0.0.0.0:8000``` Create a webserver, then redirect your browser to 0.0.0.0:8000 and enjoy!
 
-### Questions? drop me a line at aaron.wolf@datascopeanlaytics or leave an issue.
+##### Questions? drop me a line at aaron.wolf@datascopeanlaytics.com or leave an issue.
