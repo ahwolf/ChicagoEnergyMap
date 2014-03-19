@@ -20,7 +20,4 @@ Getting started
 
 * SSH to the virtual machine with `vagrant ssh $(Your Project Name)`
 
-* $ 
-* 
-* $ python manage.py migrate
-* $ python manage.py runserver
+* $ fab dev provision.setup_django
