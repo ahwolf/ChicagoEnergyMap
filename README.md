@@ -17,7 +17,7 @@ Getting started
 
 * ```fab dev vagrant.up provision``` _This will create a virtual machine with all the necessary packages._
 
-* ```fab dev provision.setup\_django``` _This will setup mysql and database for django_
+* ```fab dev provision.setup_django``` _This will setup mysql and database for django_
 
 * SSH to the virtual machine with `vagrant ssh $(Your Project Name)`
 
