@@ -42,10 +42,10 @@
 
   <div id="compass2D"></div>
 
-  <div id="validContainer">
+<!--   <div id="validContainer">
     <div id="validAddress">PLEASE ENTER A VALID ADDRESS</div>
   </div>
-
+ -->
   <div id="socialModal">
     <p class="overlayHeader">Thanks For Pledging!</p>
     <p>Feel free to share your pledge on either of the sites below.</p>
@@ -68,42 +68,45 @@
   <!-- wrapper for ui -->
   <div id="wrapper">
     <div id="mapContainer"></div>
-    <div id="sideBar">
-
-      <div id="sideBarInner">
-
-        <div id="neighborhoodTitle">Greater Grand Crossing</div>
-
-        <div id="currentViewText">Natural Gas</div>
-
-        <div id="radioButtons">
-          <input type="radio" id="radio-1-1" name="radio-1-set" class="regular-radio" checked />
-          <label for="radio-1-1" id="gasLabel">Natural Gas</label>
-          <br>
-          <input type="radio" id="radio-1-2" name="radio-1-set" class="regular-radio" />
-          <label for="radio-1-2" id="electricLabel">Electric</label>
-        </div>
 
 
-      </div>
-
-      <div id="returnButton"></div>
-
-      <div id="compass"></div>
-      
-    </div>
 
 
-<!--     <div id="keysWrapper">    
+    <div id="keysWrapper">    
       <div id="key"></div>
+    </div>
       <div id="keyNeighborhood">
-        <div class="buttonContainer">
+        <div id="sideBar">
+
+          <div id="sideBarInner">
+
+            <div id="neighborhoodTitle">Greater Grand Crossing</div>
+
+            <div id="currentViewText">Natural Gas</div>
+
+            <div id="radioButtons">
+              <input type="radio" id="radio-1-1" name="radio-1-set" class="regular-radio" checked onclick="changeGasElectricLegend('gas')" value="gas"/>
+              <label for="radio-1-1" id="gasLabel">Natural Gas</label>
+              <br>
+              <input type="radio" id="radio-1-2" name="radio-1-set" class="regular-radio" onclick="changeGasElectricLegend('electric')" value="electric"/>
+              <label for="radio-1-2" id="electricLabel">Electric</label>
+            </div>
+
+
+          </div>
+
+          <div id="returnButton"></div>
+
+          <div id="compass"></div>
+          
+        </div>
+<!--         <div class="buttonContainer">
           <input type="radio" id="radio-1-1" name="radio-1-set" class="regular-radio" checked onclick="changeGasElectricLegend('gas')" value="gas"/><br>
           <input type="radio" id="radio-1-2" name="radio-1-set" class="regular-radio" onclick="changeGasElectricLegend('electric')" value="electric"/>
-        </div>
-      </div>
+        </div> -->
+
     </div>
- -->
+
     <div id="branding"></div>
 
     <!-- search/input field -->
@@ -347,8 +350,12 @@
         <input type="text" name="name" id="emailEntry" placeholder="ENTER YOUR EMAIL ADDRESS" />
       </div>
       <div id="invalidEmail">invalid email, please try again</div>
-      <div id="thankYou">Thank you, we will follow-up with additional information</div>
+      <!-- <div id="thankYou">Thank you, we will follow up with additional information</div> -->
       <div class="fourGreyStars"><img src="{{STATIC_URL}}img/fourGreyStars.png" alt=""></div>
+      <div id="validContainer">
+        <div id="validAddress">PLEASE ENTER A VALID ADDRESS</div>
+      </div>
+
 
     </div>
 

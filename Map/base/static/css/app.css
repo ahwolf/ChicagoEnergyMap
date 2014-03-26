@@ -258,7 +258,7 @@ p {
   position: absolute;
   z-index: 10000;
   left: 50%;
-  top: 280px;
+  top: 200px;
   visibility: hidden;
 }
 
@@ -277,9 +277,9 @@ p {
   padding-right: 10px;
   font-size: 12px;
   
-  height: 28px;
+  height: 50px;
   left:-50%;
-  visibility: hidden;
+  /*visibility: hidden;*/
 }
 
 #socialModal {
@@ -392,7 +392,7 @@ p {
   height: 291px;
   top: 10px;
   left: 10px;
-  background: url(../img/keyNeighborhoodView.png) no-repeat;
+  /*background: url(../img/keyNeighborhoodView.png) no-repeat;*/
   -webkit-transition: all 0s ease-out;
   -moz-transition: all 0s ease-out;
   -ms-transition: all 0s ease-out;

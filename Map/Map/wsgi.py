@@ -14,7 +14,7 @@ framework.
 
 """
 import os
-#import sys
+import sys
 #import site
 #import subprocess
 
@@ -47,7 +47,7 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__) + "../../")
 #sys.path[:0] = new_sys_path
 
 # Add the app code to the path
-#sys.path.append(PROJECT_ROOT)
+sys.path.append(PROJECT_ROOT)
 
 os.environ['CELERY_LOADER'] = 'django'
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Map.settings")

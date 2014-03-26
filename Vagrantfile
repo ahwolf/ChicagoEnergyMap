@@ -32,9 +32,30 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--memory", "2048"]
   end
  
+  #################################################### DIGITAL OCEAN SETUP
+  # global configuration on the virtualbox provider. for all available
+  # options, see http://www.virtualbox.org/manual/ch08.html
+  digo_server_name = ini['servers']['digital_ocean']
+  config.vm.provider :digital_ocean do |digo, override|
+    override.ssh.private_key_path = '~/.ssh/id_rsa'
+    override.vm.box = 'digital_ocean'
+    override.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
+
+    digo.server_name = digo_server_name
+    digo.client_id = ini['digital_ocean']['client_id']
+    digo.api_key = ini['digital_ocean']['api_key']
+    digo.public_key_path = "~/.ssh/id_rsa.pub"
+  end
+
   ################################################################# LOCAL SERVER
   config.vm.define virtualbox_server_name do |server_config|
     server_config.vm.hostname = virtualbox_server_name
   end
+
+  ############################################################# RACKSPACE SERVER
+  config.vm.define digo_server_name do |server_config|
+    server_config.vm.hostname = digo_server_name
+  end
+
 
 end

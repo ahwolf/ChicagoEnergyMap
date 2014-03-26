@@ -91,7 +91,7 @@ def setup_analysis():
 
 @task
 @decorators.needs_environment
-def setup_django():
+def setup_django(do_rsync=True):
     """setup django"""
         
     with vagrant_settings(env.host_string):
@@ -111,32 +111,53 @@ def setup_django():
             fabtools.require.mysql.database(django_db,owner=django_username)
 
 
-        # # collect the static files
-        # with cd("/vagrant/Map"):
-        #     run("./manage.py collectstatic --noinput")
+        # collect the static files
+        with cd("/vagrant/Map"):
+            run("./manage.py collectstatic --noinput")
 
         # write the local django settings. since local.py is listed in
         # the .hgignore, the -C option to rsync must ignore it. this
         # needs to go AFTER rsyncing
 
-        # make sure the dir exists (for the site_root one)
-        target_dir = "/vagrant/Map/Map/settings/"
-        fabtools.require.directory(target_dir, owner="www-data", use_sudo=True)
-        # use_sudo is necessary (for the site_root one)
+        # rsync directory to get all models, views, etc into the
+        # /srv/www directory.
+        #
+        # TODO: Use a soft link to the figures/templates directory to
+        # avoid unnecessary rsyncing of data from analysis?
+        site_name = "chicagoenergy.datascopeanalytics.com"
+        web_dir = "Map"
+        site_root = os.path.join("/srv", "www", site_name, web_dir)
+        fabtools.require.directory(site_root, owner="www-data", use_sudo=True)
+        if do_rsync:
+            sudo("rsync -avC --exclude='*.hg' /vagrant/%s %s" % (
+                web_dir, os.path.dirname(site_root)
+            ))
 
-        fabtools.require.files.template_file(
-            path=target_dir + "local.py",
-            template_source=os.path.join(
-                utils.fabfile_templates_root(), "django_settings.py"
-            ),
-            context={
-                "django_db": django_db,
-                "django_username": django_username,
-                "django_password": django_password,
-                "FACEBOOK_APP_ID": facebook_id,
-            },
-            use_sudo=True,
-        )
+
+        for root_dir in ["/vagrant/" + web_dir, site_root]:
+            # make sure the dir exists (for the site_root one)
+            target_dir = root_dir+"/Web/settings/"
+            fabtools.require.directory(target_dir, owner="www-data", use_sudo=True)
+            # use_sudo is necessary (for the site_root one)
+            fabtools.require.files.template_file(
+                path=root_dir+"/Web/settings/local.py",
+                template_source=os.path.join(
+                    utils.fabfile_templates_root(), "django_settings.py"
+                ),
+                context={
+                    "django_db": django_db,
+                    "django_username": django_username,
+                    "django_password": django_password,
+                    "FACEBOOK_APP_ID": facebook_id,
+                },
+                use_sudo=True,
+            )
+
+
+        # make sure permissions are set up properly
+        #sudo("chmod -R a+w %s" % site_root)
+        sudo("chmod -R g+w %s" % site_root)
+        sudo("chgrp -R www-data %s" % site_root)
 
         # # make sure permissions are set up properly
         # #sudo("chmod -R a+w %s" % site_root)
@@ -147,6 +168,21 @@ def setup_django():
         with cd("/vagrant/Map"):
             run("./manage.py syncdb --noinput")
             run("./manage.py migrate")
+
+        # setup apache
+        # fabtools.require.apache.module_enabled("mod_wsgi") # __future__
+        config_filename = os.path.join(
+            utils.fabfile_templates_root(), 
+            "apache.conf",
+        )
+        fabtools.require.apache.site(
+            'chicagoenergy.datascopeanalytics.com',
+            template_source=config_filename,
+            wsgi_application_group=r"%{GLOBAL}",
+            site_name=site_name,
+            site_root=site_root,
+        )
+        fabtools.require.apache.disabled('default')
 
 
 @task(default=True)

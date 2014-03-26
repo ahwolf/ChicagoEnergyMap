@@ -104,7 +104,7 @@ def serve_neighborhood(request):
     neighborhood_name = request.GET['name']
     building_subtype = request.GET['building_subtype']
     location = request.GET.getlist('loc[]')
-    #print location
+    
     location = [float(location[0]), float(location[1])]
     neighborhood = Neighborhoods.objects.get(name = neighborhood_name)
     census_blocks = CensusBlocks.objects.filter(neighborhood = neighborhood,

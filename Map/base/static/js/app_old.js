@@ -540,7 +540,7 @@ function disappearCity(clickedHood) {
   TweenLite.to($("#addressField"), .25, {autoAlpha:0, delay:totalTime - 1});
   // TweenLite.to($("#key"), .25, {autoAlpha:0, delay:totalTime - 1});
   TweenLite.to($("#footer"), .25, {autoAlpha:0, delay:totalTime - 1});
-  TweenLite.to($("#hoodContainer"), .25, {autoAlpha:1, delay:totalTime - 1});
+  // TweenLite.to($("#hoodContainer"), .25, {autoAlpha:1, delay:totalTime - 1});
   TweenLite.to($("#container"), .25, {autoAlpha:0, delay:totalTime - .25});
   TweenLite.delayedCall(totalTime - .25, growNeighborhoodDetail);
 
@@ -770,6 +770,7 @@ function growNeighborhoodDetail() {
   extrudeMultiplier = .15;
 
   TweenLite.to($("#key"), .25, {autoAlpha:0})
+  TweenLite.to($("#keysWrapper"), .25, {autoAlpha:0})
   TweenLite.to($("#keyNeighborhood"), .25, {autoAlpha:1, delay:.25})
 
 //  create2Dmap();
@@ -879,7 +880,7 @@ function reappearCity(clickedHood) {
     TweenLite.to(obj.material, time, {opacity:1, delay:i * delay, overwrite:false});
   }
 
-  TweenLite.to($("#hoodContainer"), .25, {autoAlpha:0});
+  // TweenLite.to($("#hoodContainer"), .25, {autoAlpha:0});
   TweenLite.to($("#branding"), .25, {autoAlpha:1, delay:totalTime - 1});
   TweenLite.to($("#addressField"), .25, {autoAlpha:1, delay:totalTime - 1});
   TweenLite.to($("#key"), .25, {autoAlpha:1, delay:totalTime - 1});
@@ -1023,6 +1024,7 @@ function enter_email(){
 // console.log("entered email section")
  var email = document.getElementById("emailEntry").value;
  if (validateEmail(email)){
+        $("#validContainer").css({"visibility":"hidden"});   
  $.ajax({url: email_entry,
            data:{email:email,
            }
@@ -1030,10 +1032,11 @@ function enter_email(){
     .done(function(response){
         // We had a success, lets say thanks for the pledge!
         // Make something visible
-        $("#validContainer").css({"visibility":"hidden"});   
+
         $("#validAddress").html("Thank you, we will follow-up with additional information!");   
 
-        TweenLite.to($('#validContainer'), .5, {autoAlpha: 1, delay: .375});
+        TweenLite.to($('#validContainer'), .5, {autoAlpha: 1, delay: .375,
+                      onComplete:function(){$("#emailEntry").val("")}});
     });
  }
 else{
@@ -1072,64 +1075,40 @@ $('#twitterButton').click(function(){
                 "_blank");
 });
 
+function footer_button(){
+  if (currentState !== "overlay"){
+    oldcurrentState = currentState;
+    currentState = "overlay";
+  }
+  $("#container").addClass("grayscaleAndLighten");
+  // if (oldcurrentState == "city"){
+    TweenLite.to($('#branding'), .5, {autoAlpha: 0, delay: .25});
+    TweenLite.to($('#addressField'), .5, {autoAlpha: 0, delay: .25});
+  // }
+  //TweenLite.to($('#map_canvas'), .5, {autoAlpha: 0, delay: .25});
+  TweenLite.to($('#overlay'), .5, {autoAlpha: 1, delay: .375});
+  TweenLite.to($('#about'), .5, {autoAlpha: 0, delay: .125});
+  TweenLite.to($('#keysWrapper'), .5, {autoAlpha: 0, delay: .25});
+  TweenLite.to($('#rotateWrapper'), .5, {autoAlpha: 0, delay: .125});
+  TweenLite.to($('#leaderboard'), .5, {autoAlpha: 0, delay: .125});
+  TweenLite.to($('#moreinfo'), .5, {autoAlpha: 0, delay: .125});
+  TweenLite.to($('#efficiencyTips'), .5, {autoAlpha: 0, delay: .125});
+}
 
 
 $("#aboutButton").click(function() {
-  oldcurrentState = currentState;
-  currentState = "overlay";
-  $("#container").addClass("grayscaleAndLighten");
-  if (oldcurrentState == "city"){
-    TweenLite.to($('#branding'), .5, {autoAlpha: 0, delay: .25});
-    TweenLite.to($('#addressField'), .5, {autoAlpha: 0, delay: .25});
-  }
-  //TweenLite.to($('#map_canvas'), .5, {autoAlpha: 0, delay: .25});
-  TweenLite.to($('#overlay'), .5, {autoAlpha: 1, delay: .375});
+  footer_button();
   TweenLite.to($('#about'), .5, {autoAlpha: 1, delay: .375});
-  TweenLite.to($('#keysWrapper'), .5, {autoAlpha: 0, delay: .25});
-  TweenLite.to($('#rotateWrapper'), .5, {autoAlpha: 0, delay: .125});
-  TweenLite.to($('#leaderboard'), .5, {autoAlpha: 0, delay: .125});
-  TweenLite.to($('#moreinfo'), .5, {autoAlpha: 0, delay: .125});
-  TweenLite.to($('#efficiencyTips'), .5, {autoAlpha: 0, delay: .125});
-
 });
 
 $("#emailButton").click(function() {
-  oldcurrentState = currentState;
-    //console.log("clicked!");
-  currentState = "overlay";
-  $("#container").addClass("grayscaleAndLighten");
-  if (oldcurrentState == "city"){
-      TweenLite.to($('#branding'), .5, {autoAlpha: 0, delay: .25});
-      TweenLite.to($('#addressField'), .5, {autoAlpha: 0, delay: .25});
-  }
-  //TweenLite.to($('#map_canvas'), .5, {autoAlpha: 0, delay: .25});
-  TweenLite.to($('#overlay'), .5, {autoAlpha: 1, delay: .375});
+  footer_button();
   TweenLite.to($('#moreinfo'), .5, {autoAlpha: 1, delay: .375});
-  TweenLite.to($('#keysWrapper'), .5, {autoAlpha: 0, delay: .25});
-  TweenLite.to($('#rotateWrapper'), .5, {autoAlpha: 0, delay: .125});
-  TweenLite.to($('#leaderboard'), .5, {autoAlpha: 0, delay: .125});
-  TweenLite.to($('#about'), .5, {autoAlpha: 0, delay: .125});
-  TweenLite.to($('#efficiencyTips'), .5, {autoAlpha: 0, delay: .125});
-
 });
 
 $("#leaderboardButton").click(function() {
-  oldcurrentState = currentState;
-  currentState = "overlay";
-  $("#container").addClass("grayscaleAndLighten");
-
-  if (oldcurrentState == "city"){
-      TweenLite.to($('#branding'), .5, {autoAlpha: 0, delay: .25});
-      TweenLite.to($('#addressField'), .5, {autoAlpha: 0, delay: .25});
-  }
-  //TweenLite.to($('#map_canvas'), .5, {autoAlpha: 0, delay: .25});
-  TweenLite.to($('#overlay'), .5, {autoAlpha: 1, delay: .375});
+  footer_button();
   TweenLite.to($('#leaderboard'), .5, {autoAlpha: 1, delay: .375});
-  TweenLite.to($('#keysWrapper'), .5, {autoAlpha: 0, delay: .25});
-  TweenLite.to($('#rotateWrapper'), .5, {autoAlpha: 0, delay: .125});
-  TweenLite.to($('#moreinfo'), .5, {autoAlpha: 0, delay: .125});
-  TweenLite.to($('#about'), .5, {autoAlpha: 0, delay: .125});
-  TweenLite.to($('#efficiencyTips'), .5, {autoAlpha: 0, delay: .125});
 
   $.ajax({url: leaderboard})
     .done(function (leaders){
@@ -1141,6 +1120,19 @@ $("#leaderboardButton").click(function() {
     });
 });
 
+$("#energyEfficiencyButton").click(function() {
+  footer_button();
+  TweenLite.to($('#efficiencyTips'), .5, {autoAlpha: 1, delay: .375});
+  TweenLite.to($('#neighborhoodEntry'), .5, {autoAlpha: 1, delay: .375});
+  var subtype = $("#subtypeChoices").val();
+
+  $.ajax({url: pledge,
+         data:{subtype:subtype}
+     })
+    .done(pledge_return);
+});
+
+
 $(".closeButton").click(function() {
   currentState = oldcurrentState;
   if (currentState == "city"){
@@ -1149,7 +1141,7 @@ $(".closeButton").click(function() {
       TweenLite.to($('#keysWrapper'), .5, {autoAlpha: 1, delay: .25});
       TweenLite.to($('#rotateWrapper'), .5, {autoAlpha: 1, delay: .25});
   }
-  //TweenLite.to($('#map_canvas'), .5, {autoAlpha: 1, delay: .25});
+  // TweenLite.to($('#map_canvas'), .5, {autoAlpha: 1, delay: .25});
   TweenLite.to($('#overlay'), .5, {autoAlpha: 0});
   TweenLite.to($('#about'), .5, {autoAlpha: 0});
   TweenLite.to($('#leaderboard'), .5, {autoAlpha: 0});
@@ -1164,42 +1156,16 @@ $(".closeButton").click(function() {
 
 
 
-$("#energyEfficiencyButton").click(function() {
-  oldcurrentState = currentState;
-  currentState = "overlay";
-  $("#container").addClass("grayscaleAndLighten");
-  TweenLite.to($('#neighborhoodEntry'), .5, {autoAlpha: 1, delay: .375});
-  if (oldcurrentState == "city"){
-    TweenLite.to($('#branding'), .5, {autoAlpha: 0, delay: .25});
-    TweenLite.to($('#addressField'), .5, {autoAlpha: 0, delay: .25});
-  }
-  //TweenLite.to($('#map_canvas'), .5, {autoAlpha: 0, delay: .25});
-  TweenLite.to($('#keysWrapper'), .5, {autoAlpha: 0, delay: .25});
-  TweenLite.to($('#overlay'), .5, {autoAlpha: 1, delay: .375});
-  TweenLite.to($('#efficiencyTips'), .5, {autoAlpha: 1, delay: .375});
-  TweenLite.to($('#neighborhoodEntry'), .5, {autoAlpha: 1, delay: .375});
-  var subtype = $("#subtypeChoices").val();
 
-  $.ajax({url: pledge,
-         data:{subtype:subtype}
-     })
-    .done(pledge_return);
-  TweenLite.to($('#rotateWrapper'), .5, {autoAlpha: 0, delay: .125});
-  TweenLite.to($('#leaderboard'), .5, {autoAlpha: 0, delay: .125});
-  TweenLite.to($('#moreinfo'), .5, {autoAlpha: 0, delay: .125});
-  TweenLite.to($('#about'), .5, {autoAlpha: 0, delay: .125});
-
-});
-
-$("#backToCityButton").click(function() {
+$("#returnButton").click(function() {
   // hide 'back to city' button
-  TweenLite.to($('#backToCityButton'), .25, {autoAlpha:0});
+  // TweenLite.to($('#backToCityButton'), .25, {autoAlpha:0});
   TweenLite.to($('#container'), .25, {autoAlpha:0});
-  TweenLite.to($('#wrapper'), .25, {autoAlpha:0});
+  TweenLite.to($('#wrapper'), .25, {autoAlpha:0, onComplete:cheatRefresh});
   //TweenLite.to($('#map_canvas'), .25, {autoAlpha: 0});
-  TweenLite.to($('#hoodContainer'), .25, {autoAlpha:0, onComplete:cheatRefresh});
+  // TweenLite.to($('#hoodContainer'), .25, {autoAlpha:0, onComplete:cheatRefresh});
   // TweenLite.delayCall(.25,removeBlocks); 
-  
+  TweenLite.to($('#keysWrapper'), .5, {autoAlpha: 1, delay: .25});
   TweenLite.to($('#rotateWrapper'), .5, {autoAlpha: 0, delay: .125});
   TweenLite.to($('#footer'), .25, {autoAlpha: 0});
   TweenLite.to($('#overlay'), .25, {autoAlpha: 0});
@@ -1368,10 +1334,10 @@ function onDocumentClick(event, test) {
   // if we've clicked on a neighborhood
   if (test ||(INTERSECTED.name !== "floor" && currentRollover !== "" && currentState == "city" && !overFooter)) {
     if (test){
-        $("#hoodOverviewHeader").html(currentRollover);
+        $("#neighborhoodTitle").html(currentRollover);
     }
     else{
-        $("#hoodOverviewHeader").html(currentRollover);
+        $("#neighborhoodTitle").html(currentRollover);
     }
 
     // localStorage.setItem('angle', currentAngle);
@@ -1420,8 +1386,8 @@ function onDocumentClick(event, test) {
       TweenLite.to(main, 2, {camPosX: newCamPosX, camPosY:75, camPosZ: newCamPosZ, delay:0, ease:Quint.easeInOut, onComplete: setCurrentState, onCompleteParams: ["neighborhood"]});
 
     // show 'back to city' button
-    TweenLite.to($('#keysWrapper'), .25, {css: { height: 363 }, delay: 1.5});
-    TweenLite.to($('#backToCityButton'), .25, {autoAlpha:1, delay: 1.75});
+    
+    // TweenLite.to($('#backToCityButton'), .25, {autoAlpha:1, delay: 1.75});
     
     //TweenLite.to($('#map_canvas'), .25, {autoAlpha:1, delay: 1.75});
 

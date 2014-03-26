@@ -22,3 +22,5 @@ test_db/
 *.sublime-workspace
 media/*
 static/*
+*.sql
+*.ini
