@@ -5,13 +5,13 @@ Getting started
   [Fabric](http://fabric.readthedocs.org/en/latest/installation.html),
   and [fabtools](http://fabtools.readthedocs.org/en/latest/).
 
-* Change config.ini as follows:
+* Rename config.ini.sample to config.ini and change as follows:
   * project name (currently called chicagoEnergy)
   * root_password - this is the root mysql password for the box
   * django\_root\_password - root password for the django db
   * django\_username\_password - root username for the django db
   * django_database - name of the django db
-
+  * enter a facebook app_id
 
 * Put in any python or other unix tools you want in REQUIREMENTS or REQUIREMENTS-DEB
 
