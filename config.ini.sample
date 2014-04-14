@@ -1,0 +1,18 @@
+# comma-separated list server names here so that vagrant and fabric
+# can access them from one place.
+[servers]
+virtualbox = chicagoEnergyDev
+digital_ocean = XXXXXX
+
+[social]
+FACEBOOK_APP_ID = 168209096675522
+
+[mysql]
+root_password = root_password
+django_root_username = username
+django_root_password = password
+django_database = chicagoEnergy
+
+[digital_ocean]
+client_id = XXXXX
+api_key = XXXXXXX
