@@ -6,7 +6,7 @@
 # install these gems (iniparse, for example), you need to run
 # something like:
 #
-# [unix]$ vagrant package install iniparse
+# [unix]$ vagrant plugin install iniparse
 require 'iniparse'
 
 Vagrant.configure("2") do |config|

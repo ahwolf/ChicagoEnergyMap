@@ -2,8 +2,8 @@ Getting started
 ---------------
 
 * Install [Vagrant](http://vagrantup.com),
-  [Fabric](http://fabric.readthedocs.org/en/latest/installation.html),
-  and [fabtools](http://fabtools.readthedocs.org/en/latest/).
+  [Fabric](http://fabric.readthedocs.org/en/1.8/installation.html),
+  [fabtools](http://fabtools.readthedocs.org/en/latest/), and [virtualbox](https://www.virtualbox.org/wiki/Downloads).
 
 * Rename config.ini.sample to config.ini and change as follows:
   * project name (currently called chicagoEnergy)
