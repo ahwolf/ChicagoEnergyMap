@@ -1,0 +1,4 @@
+cd into ChicagoEnergyMap
+vagrant ssh chicagoEnergy
+cd /vagrant/Map
+python manage.py runserver 0.0.0.0:8000

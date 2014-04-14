@@ -23,6 +23,7 @@ queue.loadManifest([
    {src:"{{STATIC_URL}}img/starsTipsHeader.png"},
    {src:"{{STATIC_URL}}img/tooltipCarrot.png"},
    {src:"{{STATIC_URL}}img/twitter.png"},
+   {src:"{{STATIC_URL}}img/1139.gif"},
    // js
    {src:"http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/CSSPlugin.min.js"},
    {src:"http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/easing/EasePack.min.js"},

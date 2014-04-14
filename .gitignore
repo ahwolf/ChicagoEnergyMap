@@ -24,3 +24,6 @@ media/*
 static/*
 *.sql
 *.ini
+static/*
+*.sql
+*.ini

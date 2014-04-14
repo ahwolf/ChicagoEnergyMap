@@ -90,14 +90,17 @@ var bounds;
 var blocks;
 var vis;
 
+var mapImg;
+
 
 function initStaticGraphics() {
   // compass
-  var mapImg = new THREE.MeshBasicMaterial({
+  mapImg = new THREE.MeshBasicMaterial({
       map:THREE.ImageUtils.loadTexture(toner_map)
   });
   mapImg.map.needsUpdate = true;
-
+  mapImg.transparent = true;
+  mapImg.opacity = 0;
   
   var mapPlane = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), mapImg);
   mapPlane.overdraw = true;
@@ -161,9 +164,16 @@ function initScene() {
   projector = new THREE.Projector();
 
   // create a WebGL renderer, camera, and a scene
-  renderer = new THREE.WebGLRenderer({antialias:true});
+  renderer = new THREE.WebGLRenderer({antialias:false});
   renderer.shadowMapEnabled = true;
   renderer.shadowMapSoft = true;
+  renderer.devicePixelRatio = 1;
+  renderer.autoClear = false;
+  renderer.autoClearColor = false;
+  renderer.autoClearDepth = false;
+  renderer.audoUpdateObjects = false;
+  renderer.maxMorphTargets = 4;
+
 
   camera = new THREE.PerspectiveCamera( VIEW_ANGLE, WIDTH / HEIGHT, NEAR, FAR );
   camPosX = Math.cos(currentAngle) * radiusX * .5;
@@ -191,19 +201,19 @@ function initScene() {
   addPeripheralSpotlight(0, 0, 500);
   
   // add a base plane on which we'll render our map
-  var planeGeo = new THREE.PlaneGeometry(1250, 1250, 10, 10);
-  var planeTex = THREE.ImageUtils.loadTexture(floor_url);//floor_url);
-  planeTex.wrapS = planeTex.wrapT = THREE.RepeatWrapping;
-  planeTex.repeat.set( 10, 10 );
-  planeMat = new THREE.MeshBasicMaterial( { map: planeTex } ); // use jpg texture to get shadows we want
-  // planeMat.opacity = 0;
-  plane = new THREE.Mesh(planeGeo, planeMat);
+  // var planeGeo = new THREE.PlaneGeometry(1250, 1250, 10, 10);
+  // var planeTex = THREE.ImageUtils.loadTexture(floor_url);//floor_url);
+  // planeTex.wrapS = planeTex.wrapT = THREE.RepeatWrapping;
+  // planeTex.repeat.set( 10, 10 );
+  // planeMat = new THREE.MeshBasicMaterial( { map: planeTex } ); // use jpg texture to get shadows we want
+  // // planeMat.opacity = 0;
+  // plane = new THREE.Mesh(planeGeo, planeMat);
 
-  // rotate plane to correct position
-  plane.rotation.x = -Math.PI/2;
-  plane.receiveShadow = true;
-  plane.position.y = 0;
-  plane.name = "floor";
+  // // rotate plane to correct position
+  // plane.rotation.x = -Math.PI/2;
+  // plane.receiveShadow = true;
+  // plane.position.y = 0;
+  // plane.name = "floor";
   // scene.add(plane);
 }
 
@@ -340,7 +350,7 @@ function addGeoObject() {
   TweenLite.delayedCall(2, turnKeyAnimationOn);
   TweenLite.to($('#key'), .125, {autoAlpha:1});
   TweenLite.to($('#rotateWrapper'), .125, {autoAlpha:1});
-  
+  TweenLite.to(mapImg, .75, {opacity:1, delay:1.25});
 }
 
 function turnKeyAnimationOn() {
@@ -895,9 +905,9 @@ function animate() {
 }
 
 initScene();
+initStaticGraphics();
 addGeoObject();
 animate();
-initStaticGraphics();
 //console.log(neighborhoods);
 //renderer.render( scene, camera );
 
@@ -1280,7 +1290,7 @@ function onDocumentMouseMove(event) {
   mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
   mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
-  TweenLite.to($('#rolloverTip'), .1, { css: { left: event.pageX - 28, top: event.pageY - 150 }});
+  TweenLite.to($('#rolloverTip'), .1, { css: { left: event.pageX - 28, top: event.pageY - 155 }});
 
   // detect mouse position
   if ( event.pageY >= window.innerHeight - 61 && currentState == "city")

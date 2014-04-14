@@ -1,0 +1,126 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+  font-weight: 300;
+}
+
+input {outline: none;}
+
+#sideBar {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  bottom: 70px;
+  width: 226px;
+  background-image: url(../img/blackBack.png); 
+}
+
+#compass {
+  position: absolute;
+  width: 226px;
+  height: 80px;
+  background-image: url(../img/compass.png);
+  bottom: 0;
+}
+
+#sideBarInner{
+  width: 226px;
+  height: 459px;
+  background-image: url(../img/sideBarStatic.png);
+}
+
+#neighborhoodTitle {
+  width: 226px;
+  color: #00a6e2;
+  font-size: 18px;
+  text-align: center;
+  top: 24px;
+  position: absolute;
+}
+
+#currentViewText {
+  color: #FFF;
+  font-size: 22px;
+  width: 226px;
+  position: absolute;
+  left: 31px;
+  top: 125px;
+}
+
+#radioButtons {
+  width: 226px;
+  position: absolute;
+  left: 31px;
+  top: 353px;
+  line-height: 190%;
+  color: #999;
+  font-size: 14px;
+}
+
+#radioButtons label {
+  clear:none;
+  position: relative;
+  top: -13px;
+  left: 5px;
+  -webkit-transition: all .25s ease-out;
+  -moz-transition: all .25s ease-out;
+  -ms-transition: all .25s ease-out;
+  -o-transition: all .25s ease-out;
+  transition: all .25s ease-out;
+}
+
+#returnButton {
+  width: 165px;
+  height: 44px;
+  background-image: url(../img/returnToCityButtonNew.png);
+  position: absolute;
+  left: 31px;
+  -webkit-transition: all .25s ease-out;
+  -moz-transition: all .25s ease-out;
+  -ms-transition: all .25s ease-out;
+  -o-transition: all .25s ease-out;
+  transition: all .25s ease-out;
+  cursor: pointer;
+  opacity: .6;
+}
+
+#returnButton:hover {
+  opacity: 1;
+}
+
+
+/* RADIO BUTTONS */
+
+.regular-radio {
+  -webkit-appearance: none;
+  background-color: #fafafa;
+  border: 1px solid #cacece;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+  padding: 7px;
+  border-radius: 30px;
+  display: inline-block;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.regular-radio:checked:after {
+  content: ' ';
+  width: 8px;
+  height: 8px;
+  border-radius: 50px;
+  position: absolute;
+  top: 3px;
+  background: #99a1a7;
+  box-shadow: inset 0px 0px 10px rgba(0,0,0,0.3);
+  text-shadow: 0px;
+  left: 3px;
+  font-size: 32px;
+}
+
+.regular-radio:checked {
+  background-color: #e9ecee;
+  color: #99a1a7;
+  border: 1px solid #adb8c0;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1), inset 0px 0px 10px rgba(0,0,0,0.1);
+}
