@@ -23,7 +23,4 @@ test_db/
 media/*
 static/*
 *.sql
-*.ini
-static/*
-*.sql
-*.ini
+config.ini
