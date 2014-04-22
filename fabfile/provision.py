@@ -69,6 +69,7 @@ def packages():
 @decorators.needs_environment
 def setup_analysis():
     """prepare analysis environment"""
+<<<<<<< HEAD
     pass
     # with vagrant_settings(env.host_string):
         
@@ -184,6 +185,27 @@ def setup_django(do_rsync=True):
             site_root=site_root,
         )
         fabtools.require.apache.disabled('default')
+=======
+    with vagrant_settings(env.host_string):
+        
+        # write a analysis.ini file that has the provider so we can
+        # easily distinguish between development and production
+        # environments when we run our analysis
+        template = os.path.join(
+            utils.fabfile_templates_root(), 
+            "server_config.ini",
+        )
+        fabtools.require.files.template_file(
+            path="/vagrant/server_config.ini",
+            template_source=template,
+            context=env,
+        )
+
+        # create a data directory where all of the analysis and raw
+        # data is stored. 
+        data_dir = "/vagrant/data"
+        fabtools.require.files.directory(data_dir)
+>>>>>>> 3c77398be04c1cb232c4b6df2103da79a38a41fe
 
 
 @task(default=True)

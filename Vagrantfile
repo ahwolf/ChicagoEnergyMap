@@ -32,6 +32,7 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--memory", "2048"]
   end
  
+
   #################################################### DIGITAL OCEAN SETUP
   # global configuration on the virtualbox provider. for all available
   # options, see http://www.virtualbox.org/manual/ch08.html
@@ -53,10 +54,10 @@ Vagrant.configure("2") do |config|
     server_config.vm.hostname = virtualbox_server_name
   end
 
+
   ############################################################# RACKSPACE SERVER
   config.vm.define digo_server_name do |server_config|
     server_config.vm.hostname = digo_server_name
   end
-
 
 end

@@ -12,3 +12,4 @@ django_compressor
 celery
 django-celery
 django-social-auth
+beautifulsoup4

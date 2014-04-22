@@ -17,7 +17,7 @@ tmp/*
 *.db
 db/
 test_db/
-.vagrant
+.vagrant/
 *.sublime-project
 *.sublime-workspace
 media/*
