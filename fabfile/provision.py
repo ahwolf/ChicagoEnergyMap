@@ -69,25 +69,26 @@ def packages():
 @decorators.needs_environment
 def setup_analysis():
     """prepare analysis environment"""
-    with vagrant_settings(env.host_string):
+    pass
+    # with vagrant_settings(env.host_string):
         
-        # write a analysis.ini file that has the provider so we can
-        # easily distinguish between development and production
-        # environments when we run our analysis
-        template = os.path.join(
-            utils.fabfile_templates_root(), 
-            "server_config.ini",
-        )
-        fabtools.require.files.template_file(
-            path="/vagrant/server_config.ini",
-            template_source=template,
-            context=env,
-        )
+    #     # write a analysis.ini file that has the provider so we can
+    #     # easily distinguish between development and production
+    #     # environments when we run our analysis
+    #     template = os.path.join(
+    #         utils.fabfile_templates_root(), 
+    #         "server_config.ini",
+    #     )
+    #     fabtools.require.files.template_file(
+    #         path="/vagrant/server_config.ini",
+    #         template_source=template,
+    #         context=env,
+    #     )
 
-        # create a data directory where all of the analysis and raw
-        # data is stored. 
-        data_dir = "/vagrant/data"
-        fabtools.require.files.directory(data_dir)
+    #     # create a data directory where all of the analysis and raw
+    #     # data is stored. 
+    #     data_dir = "/vagrant/data"
+    #     fabtools.require.files.directory(data_dir)
 
 @task
 @decorators.needs_environment

@@ -1370,6 +1370,7 @@ svg {
     position: absolute;
     left:50%;
     margin-left:-225px;
+    display: none;
 }
 
 .leaflet-bottom {
