@@ -111,11 +111,6 @@ def setup_django(do_rsync=True):
             fabtools.require.mysql.user(django_username, django_password)
             fabtools.require.mysql.database(django_db,owner=django_username)
 
-
-        # collect the static files
-        with cd("/vagrant/Map"):
-            run("./manage.py collectstatic --noinput")
-
         # write the local django settings. since local.py is listed in
         # the .hgignore, the -C option to rsync must ignore it. this
         # needs to go AFTER rsyncing
@@ -137,11 +132,11 @@ def setup_django(do_rsync=True):
 
         for root_dir in ["/vagrant/" + web_dir, site_root]:
             # make sure the dir exists (for the site_root one)
-            target_dir = root_dir+"/Web/settings/"
+            target_dir = root_dir+"/Map/settings/"
             fabtools.require.directory(target_dir, owner="www-data", use_sudo=True)
             # use_sudo is necessary (for the site_root one)
             fabtools.require.files.template_file(
-                path=root_dir+"/Web/settings/local.py",
+                path=root_dir+"/Map/settings/local.py",
                 template_source=os.path.join(
                     utils.fabfile_templates_root(), "django_settings.py"
                 ),
@@ -154,6 +149,9 @@ def setup_django(do_rsync=True):
                 use_sudo=True,
             )
 
+        # collect the static files
+        with cd("/vagrant/Map"):
+            run("./manage.py collectstatic --noinput")
 
         # make sure permissions are set up properly
         #sudo("chmod -R a+w %s" % site_root)

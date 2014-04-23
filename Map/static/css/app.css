@@ -244,7 +244,7 @@ p {
 
 #compass2D {
   position: absolute;
-  z-index: 10001;
+  z-index: 101;
   right: 0px;
   top: 0px;
   width: 98px;
@@ -392,7 +392,7 @@ p {
   height: 291px;
   top: 10px;
   left: 10px;
-  background: url(../img/keyNeighborhoodView.png) no-repeat;
+  /*background: url(../img/keyNeighborhoodView.png) no-repeat;*/
   -webkit-transition: all 0s ease-out;
   -moz-transition: all 0s ease-out;
   -ms-transition: all 0s ease-out;

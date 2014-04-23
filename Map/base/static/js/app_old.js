@@ -293,7 +293,7 @@ function addGeoObject() {
        var is_transparent = true;
        var transparency = .65;
        // material.depthWrite = false;
-    }	
+    } 
     else{
        var mathColor = color_scale(geoFeature.properties.gas_rank);
        var hexMathColor = parseInt(mathColor.replace("#", "0x"));
@@ -441,8 +441,8 @@ function render() {
       drawmap(INTERSECTED.properties.shape);
       var max_rank = data.features.length;
       if (currentState == "neighborhood"){
-	  $("#neighborhoodText").html(INTERSECTED.properties.nice.replace(/ [S|N|W|E] /, " Block of "));
-	  $("#tipSubHead").html("energy use / sqft");
+    $("#neighborhoodText").html(INTERSECTED.properties.nice.replace(/ [S|N|W|E] /, " Block of "));
+    $("#tipSubHead").html("energy use / sqft");
 
 
     if (INTERSECTED.properties.gas_rank === 0){
@@ -460,15 +460,15 @@ function render() {
  //    }
  //    else{
 
-	// }
+  // }
  //      $("#detailText").html("");
       }
       else if (currentState == "city"){
-	  $("#neighborhoodText").html(INTERSECTED.name);
-	  $("#tipSubHead").html("Efficiency Rank");
-	  $("#tipGasRankText").html(INTERSECTED.properties.gas_rank + " / " + max_rank);
-	  $("#tipElectricRankText").html(INTERSECTED.properties.elect_rank + " / " + max_rank);
-	  $("#detailText").html("• CLICK FOR DETAIL •");
+    $("#neighborhoodText").html(INTERSECTED.name);
+    $("#tipSubHead").html("Efficiency Rank");
+    $("#tipGasRankText").html(INTERSECTED.properties.gas_rank + " / " + max_rank);
+    $("#tipElectricRankText").html(INTERSECTED.properties.elect_rank + " / " + max_rank);
+    $("#detailText").html("• CLICK FOR DETAIL •");
       }
 
     }
@@ -1124,7 +1124,7 @@ $("#leaderboardButton").click(function() {
     .done(function (leaders){
         var html = ""
         _.each(leaders, function(leader, index){
-		html +=  "<li>"+leader[0]+' <div class="pledge">'+leader[1]+ ' / $'+ leader[2] + "</div></li>";
+    html +=  "<li>"+leader[0]+' <div class="pledge">'+leader[1]+ ' / $'+ leader[2] + "</div></li>";
         });
         $("#board").html(html);
     });
@@ -1370,7 +1370,7 @@ function onDocumentClick(event, test) {
     var newCamPosX = currentCentroid[0];
     var newCamPosZ = currentCentroid[1] + 2;
 
-    TweenLite.to($('#compass2D'), .25, {autoAlpha:1, delay: 1.75});
+    // TweenLite.to($('#compass2D'), .25, {autoAlpha:1, delay: 1.75});
     NProgress.start();
     //console.log(currentCentroid);
     $.ajax({url:census_blocks,
@@ -1499,3 +1499,8 @@ function webgl_detect(return_context)
     // WebGL not supported
     return false;
 }
+
+if ($.browser.mozilla) {
+  $("#radioButtons label").css({ top: '0px' });
+}
+
