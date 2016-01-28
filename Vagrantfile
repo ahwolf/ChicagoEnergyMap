@@ -45,8 +45,9 @@ Vagrant.configure("2") do |config|
     digo.server_name = digo_server_name
     digo.client_id = ini['digital_ocean']['client_id']
     digo.api_key = ini['digital_ocean']['api_key']
+    digo.token = ini['digital_ocean']['token']
     digo.public_key_path = "~/.ssh/id_rsa.pub"
-    digo.image = "Ubuntu 12.04.4 x64"
+    digo.image = "12.04.5 x64"
   end
 
   ################################################################# LOCAL SERVER

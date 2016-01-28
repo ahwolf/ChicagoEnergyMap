@@ -1,7 +1,7 @@
 google-api-python-client
 PyGithub
 Fabric
-django
+django==1.6
 Shapely
 rtree
 django-debug-toolbar
